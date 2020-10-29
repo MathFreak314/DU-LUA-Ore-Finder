@@ -6,7 +6,7 @@ These measurements coincide with the horizontal lines on your scanner.  When you
 then use alt+1 or alt+2 to move the highlighted measurment left/right (it wraps around) and once your measurement is highlighted
 you use alt+3 to lock it in.
 
-Once you have locked in 2 or more measurements it prints out a pos:: marker in the LUA chat that you can right click to set as a marker.
+Once you have locked in 3 or more measurements it prints out a pos:: marker in the LUA chat that you can right click to set as a marker.
 This is it's current best guess at where the ore is.  You keep feeding it measurements until it gets you close enough for the directional
 scanner.
 
