@@ -1,7 +1,7 @@
 # DU-LUA-Ore-Finder
 This is a LUA script that creates a HUD on your character which allows you to triangulate ore locations while mining
 
-It works by creating a series of buttons along the top of your screen.  It which indicates a measurement from your scanning device.
+It works by creating a series of buttons along the top of your screen.  Each of which indicates a measurement from your scanning device.
 These measurements coincide with the horizontal lines on your scanner.  When you have a reading that is on one of those lines you
 then use alt+1 or alt+2 to move the highlighted measurment left/right (it wraps around) and once your measurement is highlighted
 you use alt+3 to lock it in.
