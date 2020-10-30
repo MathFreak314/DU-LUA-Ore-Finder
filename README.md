@@ -18,7 +18,7 @@ and feed it different measurements in an attempt to get a vaild result.
 
 Finally, once you have found the ore, you can use alt+9 to reset the search so you can start finding a new ore.
 
-#Installation
+# Installation
 
 1) open the code and copy it to your clipboard
 2) in game, right click on the programming board, go to advanced and then "paste LUA config from clipboard"
