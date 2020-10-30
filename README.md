@@ -25,3 +25,9 @@ Finally, once you have found the ore, you can use alt+9 to reset the search so y
 3) this should load the code into the programming board, you know it was done correctly if circles appear at the top of your screen when activated
 4) Information is given through the LUA chat, this can be accessed by hitting ENTER and selecting the LUA tab in the chat window
 5) there are instructions included when you first start the program
+
+# Tutorial
+
+Below is a link to a tutorial video I made that also walks through the code explaining how it works
+
+https://www.youtube.com/watch?v=3jPoMpvkLp0&feature=youtu.be
