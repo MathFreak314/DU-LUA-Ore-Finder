@@ -1,0 +1,3 @@
+measureCount=0
+system.print("system restarted")
+system.print("submit a first measurement")
