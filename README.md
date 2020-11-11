@@ -26,8 +26,12 @@ Finally, once you have found the ore, you can use alt+9 to reset the search so y
 4) Information is given through the LUA chat, this can be accessed by hitting ENTER and selecting the LUA tab in the chat window
 5) there are instructions included when you first start the program
 
-# Tutorial
+# Tutorials
 
 Below is a link to a tutorial video I made that also walks through the code explaining how it works
 
 https://www.youtube.com/watch?v=3jPoMpvkLp0&feature=youtu.be
+
+Below is a link to a tutorial that explains how to customize various parts of the script
+
+https://youtu.be/lQ0f-HiWKSo
