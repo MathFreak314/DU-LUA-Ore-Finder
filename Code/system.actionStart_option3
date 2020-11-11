@@ -1,0 +1,129 @@
+dist=distance_list[current_di]
+if dist>=50 then
+    margin=12.5
+else
+    margin=2.5
+end
+player_id=unit.getMasterPlayerId()
+player_pos=vec3(system.getPlayerWorldPos(player_id))
+player_marker=GetPosString(player_pos.x,player_pos.y,player_pos.z)
+system.print("You are here:")
+system.print(player_marker)
+measureCount=measureCount+1
+if measureCount==1 then
+    measureList={}
+    table.insert(measureList,{player_pos.x,player_pos.y,player_pos.z,dist^2})
+    boxXmin=player_pos.x-(dist+margin)
+    boxXmax=player_pos.x+(dist+margin)
+    boxYmin=player_pos.y-(dist+margin)
+    boxYmax=player_pos.y+(dist+margin)
+    boxZmin=player_pos.z-(dist+margin)
+    boxZmax=player_pos.z+(dist+margin)
+    
+    start_x=player_pos.x
+    start_y=player_pos.y
+    start_z=player_pos.z
+    start_d2=(1.25*dist)^2
+    system.print("registered first measurement")
+else
+    table.insert(measureList,{player_pos.x,player_pos.y,player_pos.z,dist^2})
+    
+    dist_from_start=(player_pos.x-start_x)^2+(player_pos.y-start_y)^2+(player_pos.z-start_z)^2
+    if dist_from_start>start_d2 then
+        system.print("ERROR: location out of bounds")
+        system.print("ignoring measure, submit a new one")
+        system.print("that is within range of first measurement")
+        measureCount=measureCount-1
+    else
+        box2Xmin=player_pos.x-(dist+margin)
+        box2Xmax=player_pos.x+(dist+margin)
+        box2Ymin=player_pos.y-(dist+margin)
+        box2Ymax=player_pos.y+(dist+margin)
+        box2Zmin=player_pos.z-(dist+margin)
+        box2Zmax=player_pos.z+(dist+margin)
+
+        boxXmin=math.max(boxXmin,box2Xmin)
+        boxXmax=math.min(boxXmax,box2Xmax)
+        boxYmin=math.max(boxYmin,box2Ymin)
+        boxYmax=math.min(boxYmax,box2Ymax)
+        boxZmin=math.max(boxZmin,box2Zmin)
+        boxZmax=math.min(boxZmax,box2Zmax)
+        
+        
+
+        if boxXmin>=boxXmax or boxYmin>=boxYmax or boxZmin>=boxZmax then
+            system.print("ERROR: unable to define bounding box")
+            system.print("Please start over")
+            measureCount=0
+        elseif measureCount>2 then
+            
+            system.print("search box updated.")
+
+            chunks=5
+            xdelta=(boxXmax-boxXmin)/chunks
+            ydelta=(boxYmax-boxYmin)/chunks
+            zdelta=(boxZmax-boxZmin)/chunks
+            
+            found_marker=0
+
+            minError=1000000000
+            x=boxXmin
+            while x<=boxXmax do
+                y=boxYmin
+                while y<=boxYmax do
+                    z=boxZmin
+                    while z<=boxZmax do
+                        curError=0
+                        out_of_bounds=0
+                        for i=1,#measureList do
+                            measure=measureList[i]
+                            mx=measure[1]
+                            my=measure[2]
+                            mz=measure[3]
+                            m2=measure[4]
+                            d2=(mx-x)^2+(my-y)^2+(mz-z)^2
+                            e=math.abs(d2-m2)
+                            if e>1.5625*m2 then
+                                out_of_bounds=1
+                                break
+                            end
+                            curError=curError+e
+                        end
+                        if curError<minError and out_of_bounds==0 then
+                            minError=curError
+                            marker_x=x
+                            marker_y=y
+                            marker_z=z
+                            found_marker=1
+                        end
+                        z=z+zdelta
+                    end
+                    y=y+ydelta
+                end
+                x=x+xdelta
+            end
+            
+            if found_marker==1 then
+
+                vol=(boxXmax-boxXmin)*(boxYmax-boxYmin)*(boxZmax-boxZmin)
+
+                marker_pos=GetPosString(marker_x,marker_y,marker_z)
+                
+                dist_to_player=math.sqrt((player_pos.x-marker_x)^2+(player_pos.y-marker_y)^2+(player_pos.z-marker_z)^2)
+                
+                
+                system.print("This location is my best guess for the node:")
+                system.print(marker_pos)
+                system.print("("..marker_x..","..marker_y..","..marker_z..")")
+                system.print("distance from player: "..dist_to_player)
+            else
+                system.print("Unable to find a suitable best guess location")
+                system.print("submit another measurement or restart")
+            end
+        else
+            system.print("search box updated.")
+            system.print("registered second measurement")
+        end
+     end
+end
+
