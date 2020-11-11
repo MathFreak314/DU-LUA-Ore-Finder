@@ -1,0 +1,29 @@
+current_di=current_di-1
+if current_di==0 then
+    current_di=#distance_list
+end
+
+hudHTML=[[
+<svg width="100vw" height="100vh" viewBox="0 0 1920 1080">
+]]
+
+cx=button_r
+cy=button_r
+for index,d in pairs(distance_list) do
+    if d==distance_list[current_di] then
+        stroke_color="#CCBB44"
+    else
+        stroke_color="white"
+    end
+    hudHTML=hudHTML..[[
+    <circle cx="]]..cx..[[" cy="]]..cy..[[" r="]]..button_r..[[" stroke="]]..stroke_color..[[" stroke-width="3" fill="black"/>
+    <text x="]]..cx..[[" y="]]..cy..[[" font-size='14' fill="#228833" text-anchor='middle' font-family='Montserrat'>]]..d..[[</text>
+    ]]
+    cx=cx+2*button_r+dx
+    end
+
+hudHTML=hudHTML..[[
+</svg>
+]]
+
+system.setScreen(hudHTML)
