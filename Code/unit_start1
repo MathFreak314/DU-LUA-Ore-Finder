@@ -1,0 +1,47 @@
+--[[
+Version 2.0.0
+]]
+
+distance_list={400,375,350,325,300,275,250,225,200,175,150,125,100,75,50,45,40,35,30,25,20,15,10,5}
+button_r=25
+dx=5
+current_di=1
+margin=0.10
+
+hudHTML=[[
+<svg width="100vw" height="100vh" viewBox="0 0 1920 1080">
+]]
+
+cx=button_r
+cy=button_r
+for index,d in pairs(distance_list) do
+    if d==distance_list[current_di] then
+        stroke_color="#CCBB44"
+    else
+        stroke_color="white"
+    end
+    hudHTML=hudHTML..[[
+    <circle cx="]]..cx..[[" cy="]]..cy..[[" r="]]..button_r..[[" stroke="]]..stroke_color..[[" stroke-width="3" fill="black"/>
+    <text x="]]..cx..[[" y="]]..cy..[[" font-size='14' fill="#228833" text-anchor='middle' font-family='Montserrat'>]]..d..[[</text>
+    ]]
+    cx=cx+2*button_r+dx
+    end
+
+hudHTML=hudHTML..[[
+</svg>
+]]
+
+
+measureCount=0
+
+system.print("Welcome to SimplePiMans Ore Finder")
+system.print("Alt+1 moves the selected measurement left")
+system.print("Alt+2 moves the selected measurement right")
+system.print("Alt+3 locks in the measurement")
+system.print("Alt+9 resets the system allowing for a fresh search")
+system.print("Every masurement after the 2nd will give a ::pos tag")
+system.print("For the best guess of where the ore is located")
+system.print("You can right click to set as a destination")
+
+system.setScreen(hudHTML)
+system.showScreen(1)
