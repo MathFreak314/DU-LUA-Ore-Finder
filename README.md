@@ -1,3 +1,6 @@
+#Status Update
+I just wanted to add a note up here to let anybody who happens by here know that I've stopped playing DU so am no longer supporting this code.  With that said everybody is free to modify and use it as you wish.  :-)
+
 # DU-LUA-Ore-Finder
 This is a LUA script that creates a HUD on your character which allows you to triangulate ore locations while mining
 
